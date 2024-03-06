@@ -10,12 +10,20 @@
             </div>
 
             @if(session('success'))
-                <div class=" flex justify-center ml-[-150px] alert alert-success ">
-                    <div class="bg-green-400 rounded-md px-3  text-white font-medium  text-lg">
+                <div id="successMessage" class=" flex justify-center ml-[-150px] alert alert-success ">
+                    <div class="bg-green-500 rounded-md px-3  text-white font-medium  text-lg">
                         <h1 class="mt-3">{{ session('success') }}</h1>
                     </div>
                 </div>
             @endif
+            @if(session('delete'))
+            <div id="deleteMessage" class=" flex justify-center ml-[-150px] alert alert-success ">
+                <div class="bg-green-700 rounded-md px-3  text-white font-medium  text-lg">
+                    <h1 class="mt-3">{{session('delete')}}</h1>
+                </div>
+            </div>
+            @endif
+
 
             <div class="py-2 flex gap-4">
 
@@ -163,14 +171,6 @@
                                 </div>
 
                             </div>
-
-
-
-
-
-
-
-
                             <div class="flex justify-center">
                                 <button type="submit" class="text-black bg-gray-200 hover:bg-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Submit</button>
                             </div>
@@ -271,6 +271,7 @@
 </div>
 
 <script src="{{url('js/form.js')}}"></script>
+<script src="{{url('js/messages.js')}}"></script>
 
 </body>
 

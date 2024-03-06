@@ -79,6 +79,6 @@ class EventController extends Controller
     {
         $event->delete();
 
-        return redirect()->back()->with('success', 'Event deleted successfully');
+        return redirect()->back()->with('delete', 'Event deleted successfully');
     }
 }
