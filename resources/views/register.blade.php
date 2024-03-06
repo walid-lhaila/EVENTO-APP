@@ -68,18 +68,7 @@
                         <input name="phone" type="text" placeholder="XXX-XX-XXXX-XXX" class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-300 dark:bg-gray-100 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
                     </div>
 
-                    <div class="mt-2">
 
-                        <div class="flex justify-center">
-                            <label for="dropzone-file" class="flex items-center px-10 py-3 w-full  mx-auto mt-5 text-center bg-white rounded-lg cursor-pointer dark:border-blue-500 ">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-300 dark:text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
-                                </svg>
-                                <h2 class="mx-3 text-gray-300">Profile Photo</h2>
-                                <input id="dropzone-file" name="image" type="file" class="hidden px-5" multiple required accept="image/jpeg, image/png, image/jpg, image/gif, image/svg+xml" />
-                            </label>
-                        </div>
-                    </div>
 
                     <div>
                         <label class="block mb-2 text-sm text-gray-100">Email address</label>
@@ -94,7 +83,7 @@
                     </div>
 
                     <button type="submit"
-                        class="flex items-center justify-between w-full px-6 py-3 text-sm tracking-wide text-white capitalize transition-colors duration-300 transform bg-purple-500 rounded-lg hover:bg-purple-600 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
+                        class="flex items-center justify-between w-full px-6 h-12 mt-7 text-sm tracking-wide text-white capitalize transition-colors duration-300 transform bg-purple-500 rounded-lg hover:bg-purple-600 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
                         <span>Sign Up </span>
 
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 rtl:-scale-x-100" viewBox="0 0 20 20" fill="currentColor">
@@ -110,7 +99,7 @@
 
 
                 <div id="organisateurForm" class="hidden w-full">
-                    <form action="organisateurStore" method="POST" enctype="multipart/form-data" class="grid grid-cols-1 gap-6 mt-8 md:grid-cols-2 ">
+                    <form action="{{ route('organisateurStore') }}" method="POST" enctype="multipart/form-data" class="grid grid-cols-1 gap-6 mt-8 md:grid-cols-2 ">
                         @csrf
                         <div>
                             <label class="block mb-2 text-sm text-gray-100 ">First Name</label>
@@ -127,18 +116,7 @@
                             <input name="phone" type="text" placeholder="XXX-XX-XXXX-XXX" class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-300 dark:bg-gray-100 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
                         </div>
 
-                                <div class="mt-2">
 
-                                    <div class="flex justify-center">
-                                        <label for="dropzone-file" class="flex items-center px-10 py-3 w-full  mx-auto mt-5 text-center bg-white rounded-lg cursor-pointer dark:border-blue-500 ">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-300 dark:text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
-                                            </svg>
-                                            <h2 class="mx-3 text-gray-300">Profile Photo</h2>
-                                            <input id="dropzone-file" name="image" type="file" class="hidden px-5" multiple required accept="image/jpeg, image/png, image/jpg, image/gif, image/svg+xml" />
-                                        </label>
-                                    </div>
-                                </div>
 
                         <div>
                             <label class="block mb-2 text-sm text-gray-100">Email address</label>
@@ -153,7 +131,7 @@
                         </div>
 
 
-                        <button type="submit" class="flex items-center justify-between w-full px-6 py-3 text-sm tracking-wide text-white capitalize transition-colors duration-300 transform bg-purple-500 rounded-lg hover:bg-purple-600 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
+                        <button type="submit" class="flex items-center justify-between w-full px-6 h-12 mt-7 text-sm tracking-wide text-white capitalize transition-colors duration-300 transform bg-purple-500 rounded-lg hover:bg-purple-600 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
                             <span>Sign Up </span>
 
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 rtl:-scale-x-100" viewBox="0 0 20 20" fill="currentColor">

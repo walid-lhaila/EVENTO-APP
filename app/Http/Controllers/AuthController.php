@@ -18,12 +18,8 @@ class AuthController extends Controller
         'role' => 'required',
         'email' => 'required',
         'password' => 'required',
-        'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        $fileName = time() . '.' . $request->image->extension(); // Corrected typo
-        $request->image->storeAs('public/images', $fileName);
-        $attributes = array_merge($attributes, ['image' => $fileName]);
 
         $user = new User([
            'fname' => $attributes['fname'],
@@ -32,7 +28,6 @@ class AuthController extends Controller
            'role' => $attributes['role'],
            'email' => $attributes['email'],
             'password' => Hash::make($attributes['password']),
-            'image' => $attributes['image'],
         ]);
         $user->save();
         return view('login');

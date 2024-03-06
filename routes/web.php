@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 
 Route::get('register', [AuthController::class, 'register']);
 Route::get('login', [AuthController::class, 'login']);
@@ -28,12 +28,26 @@ Route::post('organisateurStore', [AuthController::class, 'registerStore'])->name
 
 
 
-Route::get('dashboard', [\App\Http\Controllers\AdminController::class, 'index'])->name('admin.dashboard');
 
 
-Route::get('home', [\App\Http\Controllers\OrganisateurController::class, 'index'])->name('organisateur.home');
 
 
-Route::get('event', [ClientController::class, 'event'])->name('client.event');
-Route::get('reservation', [ClientController::class, 'reservation']);
 
+Route::middleware(['auth', 'role:client'])->group(function () {
+    Route::get('event', [ClientController::class, 'event'])->name('client.event');
+    Route::get('reservation', [ClientController::class, 'reservation']);
+});
+
+Route::middleware(['auth', 'role:organisateur'])->group(function () {
+    Route::get('home', [\App\Http\Controllers\OrganisateurController::class, 'index'])->name('organisateur.home');
+    Route::post('/events-store', [\App\Http\Controllers\EventController::class, 'store'])->name('events-store');
+    Route::delete('/organisateur/deleteEvent/{event}', [\App\Http\Controllers\EventController::class, 'deleteEvent'])->name('organisateur.deleteEvent');
+});
+
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('dashboard', [\App\Http\Controllers\AdminController::class, 'index'])->name('admin.dashboard');
+    Route::post('/categories', [\App\Http\Controllers\CategoryController::class, 'store'])->name('categories.store');
+    Route::get('category', [\App\Http\Controllers\AdminController::class, 'category'])->name('admin.category');
+    Route::post('/admin/accept-event/{eventId}', [\App\Http\Controllers\AdminController::class, 'acceptEvent'])->name('admin.acceptEvent');
+    Route::delete('/admin/decline-event/{eventId}', [\App\Http\Controllers\AdminController::class, 'declineEvent'])->name('admin.declineEvent');
+});

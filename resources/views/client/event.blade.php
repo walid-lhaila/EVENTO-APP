@@ -73,17 +73,22 @@
                                                 <!--CARDS-->
     <div class=" flex flex-wrap ml-16 mt-10">
 
-            <div class="w-[800px] bg-cover rounded-lg brightness-100 m-10" style="background-image: url('img/cards.jpg')">
+        @foreach($events as $event)
+
+            <div class="w-[800px] bg-cover rounded-lg brightness-100 m-10" style="background-image: url('{{asset('storage/' . $event->image)}}')">
                 <div class="flex justify-between p-5">
                     <div>
-                        <h1 class="text-5xl font-bold text-pink-200 py-1">Sour Milk Party</h1>
-                        <p class="text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto, vitae!</p>
+                        <h1 class="text-5xl font-bold text-pink-200 py-1">{{$event->title}}</h1>
+                        <p class="text-white">{{$event->description}}</p>
                     </div>
+                    @php
+                        $eventDate = \Carbon\Carbon::parse($event->date);
+                    @endphp
                     <div>
-                        <h1 class="text-white text-xl font-mono">Wednesday</h1>
+                        <h1 class="text-white text-xl font-mono">{{ $eventDate->format('l') }}</h1>
                         <div class="flex">
-                            <h1 class="text-pink-700 text-xl font-bold">11\ </h1>
-                            <span class="text-3xl italic font-bold text-pink-700"> 03</span>
+                            <h1 class="text-pink-700 text-xl font-bold">{{ $eventDate->format('d') }}</h1>
+                            <span class="text-3xl italic font-bold text-pink-700"> {{ $eventDate->format('M') }}</span>
                         </div>
                     </div>
                 </div>
@@ -102,113 +107,16 @@
                     </div>
                     <div>
                         <h1 class="text-white font-medium text-lg">Open Doors</h1>
-                        <h1 class="text-pink-700 font-bold text-lg">7 Pm Onwards</h1>
+                        <h1 class="text-pink-700 font-bold text-lg">{{ $eventDate->format('H:i') }}Onwards</h1>
                     </div>
                 </div>
             </div>
-
-        <div class="w-[800px] bg-cover rounded-lg brightness-100 m-10" style="background-image: url('img/cards.jpg')">
-            <div class="flex justify-between p-5">
-                <div>
-                    <h1 class="text-5xl font-bold text-pink-200 py-1">Sour Milk Party</h1>
-                    <p class="text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto, vitae!</p>
-                </div>
-                <div>
-                    <h1 class="text-white text-xl font-mono">Wednesday</h1>
-                    <div class="flex">
-                        <h1 class="text-pink-700 text-xl font-bold">11\ </h1>
-                        <span class="text-3xl italic font-bold text-pink-700"> 03</span>
-                    </div>
-                </div>
-            </div>
-            <div class="flex justify-between p-5">
-                <div class="flex gap-2">
-                    <svg class="w-6 h-6 text-gray-800 mt-4 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.8 14h0a7 7 0 1 0-11.5 0h0l.1.3.3.3L12 21l5.1-6.2.6-.7.1-.2Z"/>
-                    </svg>
-                    <h1 class="text-white font-medium text-xl mt-4">Position Bar</h1>
-                </div>
-                <div>
-                    <button class="text-white bg-purple-600 px-3 py-1 mt-4 text-xl rounded-md font-medium items-center">
-                        Reserve
-                    </button>
-                </div>
-                <div>
-                    <h1 class="text-white font-medium text-lg">Open Doors</h1>
-                    <h1 class="text-pink-700 font-bold text-lg">7 Pm Onwards</h1>
-                </div>
-            </div>
-        </div>
+        @endforeach
 
 
-        <div class="w-[800px] bg-cover rounded-lg brightness-100 m-10" style="background-image: url('img/cards.jpg')">
-            <div class="flex justify-between p-5">
-                <div>
-                    <h1 class="text-5xl font-bold text-pink-200 py-1">Sour Milk Party</h1>
-                    <p class="text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto, vitae!</p>
-                </div>
-                <div>
-                    <h1 class="text-white text-xl font-mono">Wednesday</h1>
-                    <div class="flex">
-                        <h1 class="text-pink-700 text-xl font-bold">11\ </h1>
-                        <span class="text-3xl italic font-bold text-pink-700"> 03</span>
-                    </div>
-                </div>
-            </div>
-            <div class="flex justify-between p-5">
-                <div class="flex gap-2">
-                    <svg class="w-6 h-6 text-gray-800 mt-4 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.8 14h0a7 7 0 1 0-11.5 0h0l.1.3.3.3L12 21l5.1-6.2.6-.7.1-.2Z"/>
-                    </svg>
-                    <h1 class="text-white font-medium text-xl mt-4">Position Bar</h1>
-                </div>
-                <div>
-                    <button class="text-white bg-purple-600 px-3 py-1 mt-4 text-xl rounded-md font-medium items-center">
-                        Reserve
-                    </button>
-                </div>
-                <div>
-                    <h1 class="text-white font-medium text-lg">Open Doors</h1>
-                    <h1 class="text-pink-700 font-bold text-lg">7 Pm Onwards</h1>
-                </div>
-            </div>
-        </div>
 
-        <div class="w-[800px] bg-cover rounded-lg brightness-100 m-10" style="background-image: url('img/cards.jpg')">
-            <div class="flex justify-between p-5">
-                <div>
-                    <h1 class="text-5xl font-bold text-pink-200 py-1">Sour Milk Party</h1>
-                    <p class="text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto, vitae!</p>
-                </div>
-                <div>
-                    <h1 class="text-white text-xl font-mono">Wednesday</h1>
-                    <div class="flex">
-                        <h1 class="text-pink-700 text-xl font-bold">11\ </h1>
-                        <span class="text-3xl italic font-bold text-pink-700"> 03</span>
-                    </div>
-                </div>
-            </div>
-            <div class="flex justify-between p-5">
-                <div class="flex gap-2">
-                    <svg class="w-6 h-6 text-gray-800 mt-4 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.8 14h0a7 7 0 1 0-11.5 0h0l.1.3.3.3L12 21l5.1-6.2.6-.7.1-.2Z"/>
-                    </svg>
-                    <h1 class="text-white font-medium text-xl mt-4">Position Bar</h1>
-                </div>
-                <div>
-                    <button class="text-white bg-purple-600 px-3 py-1 mt-4 text-xl rounded-md font-medium items-center">
-                        Reserve
-                    </button>
-                </div>
-                <div>
-                    <h1 class="text-white font-medium text-lg">Open Doors</h1>
-                    <h1 class="text-pink-700 font-bold text-lg">7 Pm Onwards</h1>
-                </div>
-            </div>
-        </div>
+
+
     </div>
 
                                                         <!--END CARDS-->
