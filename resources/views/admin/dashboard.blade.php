@@ -57,7 +57,22 @@
     <section>
         <div class="">
             <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-
+                        <div class="flex justify-center">
+                            @if(session('success'))
+                                <div id="successMessage" class=" flex justify-center ml-[-150px] alert alert-success ">
+                                    <div class="bg-green-500 rounded-md px-3  text-white font-medium  text-lg">
+                                        <h1 class="mt-1">{{ session('success') }}</h1>
+                                    </div>
+                                </div>
+                            @endif
+                            @if(session('delete'))
+                                <div id="deleteMessage" class=" flex justify-center ml-[-150px] alert alert-success ">
+                                    <div class="bg-green-700 rounded-md px-3  text-white font-medium  text-lg">
+                                        <h1 class="mt-1">{{session('delete')}}</h1>
+                                    </div>
+                                </div>
+                            @endif
+                        </div>
                 <div>
                     <h3 class="text-lg leading-6 font-medium text-gray-900">
                         Last 30 days
@@ -77,7 +92,7 @@
                             </dt>
                             <dd class="ml-16 pb-6 flex items-baseline sm:pb-7">
                                 <p class="text-2xl font-semibold text-gray-900">
-                                    71,897
+                                    {{$organisateurCount}}
                                 </p>
                             </dd>
                         </div>
@@ -93,7 +108,7 @@
                             </dt>
                             <dd class="ml-16 pb-6 flex items-baseline sm:pb-7">
                                 <p class="text-2xl font-semibold text-gray-900">
-                                    71,897
+                                    {{$clientCount}}
                                 </p>
                             </dd>
                         </div>
@@ -109,7 +124,7 @@
                             </dt>
                             <dd class="ml-16 pb-6 flex items-baseline sm:pb-7">
                                 <p class="text-2xl font-semibold text-gray-900">
-                                    71,897
+                                    {{$eventCount}}
                                 </p>
                             </dd>
                         </div>
@@ -176,5 +191,6 @@
         </div>
     </section>
 </div>
+<script src="{{url('js/messages.js')}}"></script>
 </body>
 

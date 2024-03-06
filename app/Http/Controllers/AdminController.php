@@ -13,7 +13,10 @@ class AdminController extends Controller
     {
         $users = User::all();
         $events = Event::whereNull('validated_at')->get();
-        return view('admin.dashboard', compact('users', 'events'));
+        $organisateurCount = User::whereRole('organisateur')->count();
+        $clientCount = User::whereRole('client')->count();
+        $eventCount = Event::whereNotNull('validated_at')->count();
+        return view('admin.dashboard', compact('users', 'events', 'organisateurCount', 'clientCount', 'eventCount'));
     }
     public function category()
     {
