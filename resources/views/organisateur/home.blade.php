@@ -1,15 +1,26 @@
 @extends('header')
+
 <body class="bg-cover w-full min-h-screen brightness-100" style="background-image: url('img/bg.jpg');">
 <div class="absolute w-full inset-0 bg-gray-900 opacity-80" style="position: absolute; top: 0; bottom: 0; left: 0; right: 0; overflow-y: auto;">
+
 
         <div class="flex gap-5 justify-between p-5 z-50">
             <div>
                 <h1 class="px-5 font-bold text-4xl italic bg-gradient-to-r from-pink-500 via-purple-800 to-indigo-300 inline-block text-transparent bg-clip-text">E v e n t o</h1>
             </div>
+
+            @if(session('success'))
+                <div class=" flex justify-center ml-[-150px] alert alert-success ">
+                    <div class="bg-green-400 rounded-md px-3  text-white font-medium  text-lg">
+                        <h1 class="mt-3">{{ session('success') }}</h1>
+                    </div>
+                </div>
+            @endif
+
             <div class="py-2 flex gap-4">
 
                 <div>
-                    <svg class="w-8 h-8 dark:text-white hover:text-purple-600 cursor-pointer" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <svg class="w-8 h-8 dark:text-white hover:text-purple-600 cursor-pointerz" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5.4V3m0 2.4a5.3 5.3 0 0 1 5.1 5.3v1.8c0 2.4 1.9 3 1.9 4.2 0 .6 0 1.3-.5 1.3h-13c-.5 0-.5-.7-.5-1.3 0-1.2 1.9-1.8 1.9-4.2v-1.8A5.3 5.3 0 0 1 12 5.4ZM8.7 18c.1.9.3 1.5 1 2.1a3.5 3.5 0 0 0 4.6 0c.7-.6 1.3-1.2 1.4-2.1h-7Z"/>
                     </svg>
                 </div>
