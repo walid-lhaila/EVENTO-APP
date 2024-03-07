@@ -1,6 +1,6 @@
 @extends('header')
-<body class="bg-cover w-full min-h-screen" style="background-image: url('img/client.jpg'); margin: 0;">
-<div class="absolute w-full inset-0 bg-gray-900 opacity-90" style="position: absolute; top: 0; bottom: 0; left: 0; right: 0; overflow-y: auto;">
+<body class="bg-cover w-full min-h-screen brightness-125" style="background-image: url('img/client.jpg'); margin: 0;">
+<div class="absolute w-full inset-0 bg-black opacity-80" style="position: absolute; top: 0; bottom: 0; left: 0; right: 0; overflow-y: auto;">
 
     <div class="flex gap-5 justify-between p-5 z-50">
         <div>
@@ -27,30 +27,7 @@
     </div>
 
 
-    <div id="form" class="absolute w-full h-full inset-0 bg-opacity-50 backdrop-filter backdrop-blur-md flex justify-center items-center bg-gradient-to-b from-pink-500 via-pink-400 to-pink-300 scale-0 z-50   duration-300">
-        <div class=" bg-purple-500  w-[700px] rounded-md ml-[20px]">
-            <form action="" method="post" enctype="multipart/form-data" class="max-w-md mx-auto  bg-purple-500  py-10">
-                @csrf <!-- Add this to include the CSRF token -->
 
-                <div class="flex justify-end">
-                    <svg id="closeForm" class="w-6 h-6 text-white dark:text-white cursor-pointer" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m13 7-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
-                    </svg>
-                </div>
-                <div class="flex gap-10">
-
-                    <div class="relative z-0 w-full mt-5 mb-5 group">
-                        <input type="number" name="person" id="person" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-white dark:focus:border-orange-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder="" required min="1" />
-                        <label for="person" class="peer-focus:font-medium absolute text-sm text-white duration-300 transform -translate-y-2 scale-75 top-2 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-white font-bold peer-focus:dark:text-white peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Number Of Place</label>
-                    </div>
-
-                </div>
-                <div class="flex justify-center">
-                    <button type="submit" class="text-black bg-gray-200 hover:bg-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Submit</button>
-                </div>
-            </form>
-        </div>
-    </div>
 
 
                                                         <!--SEARCH-->
@@ -94,16 +71,18 @@
 
         @foreach($events as $event)
 
-            <div class="w-[800px] bg-cover border-4 border-double border-purple-400 rounded-lg brightness-100 m-10" style="background-image: url('{{asset('storage/' . $event->image)}}')">
-                <div class="flex justify-between p-5">
-                    <div>
+            <div class="w-[800px] relative bg-cover border-4  border-double border-purple-400 rounded-lg  m-10" style="background-image: url('{{asset('storage/' . $event->image)}}')">
+                <div class="absolute inset-0 bg-black opacity-50 rounded-lg"></div>
+
+                <div class="flex justify-between p-5 z-10">
+                    <div class="z-10">
                         <h1 class="text-5xl font-bold text-pink-200 py-1">{{$event->title}}</h1>
                         <p class="text-white">{{$event->description}}</p>
                     </div>
                     @php
                         $eventDate = \Carbon\Carbon::parse($event->date);
                     @endphp
-                    <div>
+                    <div class="z-10">
                         <h1 class="text-white text-xl font-mono">{{ $eventDate->format('l') }}</h1>
                         <div class="flex">
                             <h1 class="text-pink-700 text-xl font-bold">{{ $eventDate->format('d') }}\</h1>
@@ -111,40 +90,47 @@
                         </div>
                     </div>
                 </div>
-                <div class="flex justify-between px-3">
+                <div class="flex justify-between px-3 z-10">
                     <div class="">
-                        <div class="flex gap-2">
-                            <svg class="w-6 h-6 text-gray-800 mt-4 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <div class="flex gap-2 z-10">
+                            <svg class="w-6 h-6 z-10 text-gray-800 mt-4 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.8 14h0a7 7 0 1 0-11.5 0h0l.1.3.3.3L12 21l5.1-6.2.6-.7.1-.2Z"/>
                             </svg>
-                            <h1 class="text-white font-medium text-xl mt-4">{{$event->adress}}</h1>
+                            <h1 class="text-white z-10 font-medium text-xl mt-4">{{$event->adress}}</h1>
                         </div>
                         <div class="flex gap-10">
-                            <div class="py-2 flex gap-3">
+                            <div class="py-2 flex gap-3 z-10">
                                 <img class="h-8 w-8 mt-1" src="{{url('img/seat.png')}}" alt="">
                                 <h1 class="text-white font-bold font-mono text-4xl">{{$event->siege}}</h1>
                             </div>
-                            <div>
+                            <div class="z-10">
                                 <h1 class="text-pink-800 font-bold font-mono mt-2 text-3xl">{{$event->price}}$</h1>
                             </div>
                         </div>
                     </div>
 
-                    <div>
+                    <div class="z-10">
                         <h1 class="text-white font-medium text-lg">Open Doors</h1>
                         <h1 class="text-pink-700 font-bold text-lg">{{ $eventDate->format('H:i') }} Onwards</h1>
                     </div>
 
-
                 </div>
 
-                <div class="flex justify-center py-1">
-                    <button id="btn" class="text-white bg-purple-600 hover:bg-purple-800 duration-300 px-3 py-1 text-xl rounded-md font-medium items-center">
-                        Reserve
-                    </button>
+                <div class="flex justify-center py-2">
+                    <form action="{{route('reservation.store')}}" method="post" enctype="multipart/form-data" class="z-10" >
+                        @csrf
+                        <input type="hidden" name="event_id" value="{{$event->id}}">
+                        <input type="hidden" name="person" value="1">
+
+                        <button type="submit"  class="text-white z-10 bg-purple-600 hover:bg-purple-800 duration-300 px-3 py-1 text-xl rounded-md font-medium items-center">
+                            Reserve
+                        </button>
+                    </form>
                 </div>
+
             </div>
+
         @endforeach
 
 
@@ -157,6 +143,6 @@
 </div>
 
 <script src="{{url('js/filter.js')}}"></script>
-<script src="{{url('js/form.js')}}"></script>
+<script src="{{url('js/reserve.js')}}"></script>
 </body>
 </html>

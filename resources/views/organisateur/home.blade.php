@@ -1,7 +1,10 @@
 @extends('header')
 
-<body class="bg-cover w-full min-h-screen brightness-100" style="background-image: url('img/bg.jpg');">
-<div class="absolute w-full inset-0 bg-gray-900 opacity-80" style="position: absolute; top: 0; bottom: 0; left: 0; right: 0; overflow-y: auto;">
+<body class="bg-cover relative  w-full min-h-screen brightness-125" style="background-image: url('img/bg.jpg');">
+<div class="absolute w-full inset-0 bg-black opacity-80" style="position: absolute; top: 0; bottom: 0; left: 0; right: 0; overflow-y: auto;">
+
+
+
 
 
         <div class="flex gap-5 justify-between p-5 z-50">
@@ -27,7 +30,7 @@
 
             <div class="py-2 flex gap-4">
 
-                <div>
+                <div id="btn-notify">
                     <svg class="w-8 h-8 dark:text-white hover:text-purple-600 cursor-pointerz" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5.4V3m0 2.4a5.3 5.3 0 0 1 5.1 5.3v1.8c0 2.4 1.9 3 1.9 4.2 0 .6 0 1.3-.5 1.3h-13c-.5 0-.5-.7-.5-1.3 0-1.2 1.9-1.8 1.9-4.2v-1.8A5.3 5.3 0 0 1 12 5.4ZM8.7 18c.1.9.3 1.5 1 2.1a3.5 3.5 0 0 0 4.6 0c.7-.6 1.3-1.2 1.4-2.1h-7Z"/>
                     </svg>
@@ -39,10 +42,40 @@
                 </a>
 
             </div>
-
-
-
         </div>
+
+    <div id="notify" class="absolute right-0 bg-black duration-300 h-48 px-5">
+        <div class="w-[310px] rounded border-4 border-double border-white shadow-md ">
+            <h1 class="text-white font-bold text-xl underline py-1 flex justify-center items-center font-mono">Reservation</h1>
+        </div>
+        <div class="flex justify-between px-3 py-5 border-4 border-double border-white shadow-md">
+            @foreach($reservations as $reservation)
+                @if($reservation->reservation && $reservation->reservation->validated_at === null)
+            <div class="flex gap-24 py-3 rounded bg-gradient-to-r from-white px-2">
+                <div>
+                    <h1 class="font-bold text-md text-black">Mr {{$reservationItem->user->fname}} {{$reservationItem->user->lname}}</h1>
+                    <h1 class="font-bold text-md text-black">Reserved At : </h1>
+                </div>
+               <div class="mt-1">
+                   <button>
+                       <svg class="w-8 h-8  dark:text-gray-100 hover:text-blue-600 duration-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                           <path fill-rule="evenodd" d="M2 12a10 10 0 1 1 20 0 10 10 0 0 1-20 0Zm13.7-1.3a1 1 0 0 0-1.4-1.4L11 12.6l-1.8-1.8a1 1 0 0 0-1.4 1.4l2.5 2.5c.4.4 1 .4 1.4 0l4-4Z" clip-rule="evenodd"/>
+                       </svg>
+                   </button>
+                   <button>
+                       <svg class="w-8 h-8 dark:text-gray-100 hover:text-red-600 duration-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                           <path fill-rule="evenodd" d="M2 12a10 10 0 1 1 20 0 10 10 0 0 1-20 0Zm7.7-3.7a1 1 0 0 0-1.4 1.4l2.3 2.3-2.3 2.3a1 1 0 1 0 1.4 1.4l2.3-2.3 2.3 2.3a1 1 0 0 0 1.4-1.4L13.4 12l2.3-2.3a1 1 0 0 0-1.4-1.4L12 10.6 9.7 8.3Z" clip-rule="evenodd"/>
+                       </svg>
+                   </button>
+               </div>
+            </div>
+                @endif
+            @endforeach
+            <div>
+
+            </div>
+        </div>
+    </div>
 
         <div>
             <!--
@@ -51,7 +84,7 @@
   The alpine.js code is *NOT* production ready and is included to preview
   possible interactivity
 -->
-            <div class="bg-black">
+
                 <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
                     <div>
                         <h3 class="text-3xl leading-6 font-medium text-gray-100">
@@ -81,9 +114,9 @@
                 </div>
 
 
-                <div id="form" class="absolute w-full h-full inset-0 bg-opacity-50 backdrop-filter backdrop-blur-md flex justify-center items-center bg-gradient-to-b from-pink-500  z-50 scale-0  duration-300">
-                    <div class="bg-gradient-to-b from-purple-500 via-purple-500  w-[700px] rounded-md ml-[20px]">
-                        <form action="{{route('events-store')}}" method="post" enctype="multipart/form-data" class="max-w-md mx-auto bg-gradient-to-b from-purple-500  py-10">
+                <div id="form" class="absolute w-full h-full inset-0 bg-opacity-80 backdrop-filter backdrop-blur-md flex justify-center items-center bg-black z-50 scale-0  duration-300">
+                    <div class="bg-purple-400 w-[700px] rounded-md ml-[20px]">
+                        <form action="{{route('events-store')}}" method="post" enctype="multipart/form-data" class="max-w-md mx-auto bg-purple-400 py-10">
                             @csrf <!-- Add this to include the CSRF token -->
 
                             <div class="flex justify-end">
@@ -137,7 +170,7 @@
                                 </div>
 
                                 <div class="relative z-0 w-full mt-5 mb-5 group">
-                                    <select  class="block py-2.5 px-0 w-full text-sm text-gray-100 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-white dark:focus:border-orange-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" name="type-reserve" id="">
+                                    <select  class="block py-2.5 px-0 w-full text-sm text-gray-100 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-white dark:focus:border-orange-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" name="type_reserve" id="">
 
                                         <option class="text-black" value="automatic">Automatic</option>
                                         <option class="text-black" value="manual">Manual</option>
@@ -187,73 +220,81 @@
                     </h3>
                 </div>
                     <div class="flex justify-end px-10 mt-10">
-                        <button id="btn" class="bg-gradient-to-l from-indigo-600 text-white text-xl font-bold rounded-md shadow-lg border-4 border-double border-pink-600 px-4 py-2">
+                        <button id="btn" class="bg-gradient-to-l from-indigo-600 duration-700 hover:bg-gradient-to-r from-indigo-600  text-white text-xl font-bold rounded-md shadow-lg border-4 border-double border-pink-600 px-4 py-2">
                             Add Event
                         </button>
                     </div>
 
                     <div class="flex flex-wrap gap-5 p-5">
                         @foreach($events as $event)
-                        <div class="w-[800px] bg-cover border-4 border-double border-purple-600 rounded-lg brightness-100 m-10" style="background-image: url('{{ asset('storage/' . $event->image) }}'); ">
-                            <div class="flex justify-between p-5">
-                                <div>
-                                    <h1 class="text-5xl font-bold text-pink-200 py-1">{{$event->title}}</h1>
-                                    <p class="text-white">{{$event->description}}</p>
+                            <div class="w-[800px] relative bg-cover border-4 border-double border-purple-400 rounded-lg  " style="background-image: url('{{asset('storage/' . $event->image)}}')">
+                                <div class="absolute inset-0 bg-black opacity-50 rounded-lg"></div>
+
+                                <div class="flex justify-between p-5 relative z-10">
+                                    <div>
+                                        <h1 class="text-5xl font-bold text-pink-200 py-1">{{$event->title}}</h1>
+                                        <p class="text-white">{{$event->description}}</p>
+                                    </div>
+                                    @php
+                                        $eventDate = \Carbon\Carbon::parse($event->date);
+                                    @endphp
+                                    <div>
+                                        <h1 class="text-white text-xl font-mono">{{ $eventDate->format('l') }}</h1>
+                                        <div class="flex">
+                                            <h1 class="text-pink-700 text-xl font-bold">{{ $eventDate->format('d') }}\</h1>
+                                            <span class="text-3xl italic font-bold text-pink-700"> {{ $eventDate->format('M') }}</span>
+                                        </div>
+                                    </div>
                                 </div>
+                                <div class="flex justify-between px-3 relative z-10">
+                                    <div class="">
+                                        <div class="flex gap-2">
+                                            <svg class="w-6 h-6 text-gray-800 mt-4 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.8 14h0a7 7 0 1 0-11.5 0h0l.1.3.3.3L12 21l5.1-6.2.6-.7.1-.2Z"/>
+                                            </svg>
+                                            <h1 class="text-white font-medium text-xl mt-4">{{$event->adress}}</h1>
+                                        </div>
+                                        <div class="flex gap-10">
+                                            <div class="py-2 flex gap-3">
+                                                <img class="h-8 w-8 mt-1" src="{{url('img/seat.png')}}" alt="">
+                                                <h1 class="text-white font-bold font-mono text-4xl">{{$event->siege}}</h1>
+                                            </div>
+                                            <div>
+                                                <h1 class="text-white font-bold font-mono mt-2 text-3xl">{{$event->price}}$</h1>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                                @php
-                                    $eventDate = \Carbon\Carbon::parse($event->date);
-                                @endphp
+                                    <div>
+                                        <h1 class="text-white font-medium text-lg">Open Doors</h1>
+                                        <h1 class="text-pink-700 font-bold text-lg">{{ $eventDate->format('H:i') }} Onwards</h1>
+                                    </div>
 
-                                <div>
-                                    <h1 class="text-white text-xl font-mono">{{ $eventDate->format('l') }}</h1>
-                                    <div class="flex">
-                                        <h1 class="text-pink-700 text-xl font-bold">{{ $eventDate->format('d') }}\</h1>
-                                        <span class="text-3xl italic font-bold text-pink-700">{{ $eventDate->format('M') }}</span>
+
+                                </div>
+                                <div class="flex justify-center py-2 relative z-10">
+
+                                    <div class="flex justify-center gap-5 bg-indigo-600 h-12 w-20 w-[150px] rounded-md">
+                                        <form action="{{route('organisateur.deleteEvent', ['event' => $event->id])}}" method="post">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="mt-2">
+                                                <svg class="w-8 h-8 hover:text-red-600 duration-300 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
+                                                </svg>
+                                            </button>
+                                        </form>
+                                        <form action="">
+                                            <button class="mt-2">
+                                                <svg class="w-9 h-9 hover:text-blue-400 duration-300 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.3 4.8 2.9 2.9M7 7H4a1 1 0 0 0-1 1v10c0 .6.4 1 1 1h11c.6 0 1-.4 1-1v-4.5m2.4-10a2 2 0 0 1 0 3l-6.8 6.8L8 14l.7-3.6 6.9-6.8a2 2 0 0 1 2.8 0Z"/>
+                                                </svg>
+                                            </button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
-                            <div class="flex justify-between py-2 px-3">
-                                <div class="">
-                                    <div class="flex gap-2">
-                                        <svg class="w-6 h-6 text-gray-800 mt-4 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.8 14h0a7 7 0 1 0-11.5 0h0l.1.3.3.3L12 21l5.1-6.2.6-.7.1-.2Z"/>
-                                        </svg>
-                                        <h1 class="text-white font-medium text-xl mt-4">{{$event->adress}}</h1>
-                                    </div>
-                                    <div class="py-2 flex gap-3">
-                                        <img class="h-8 w-8 mt-1" src="{){url('img/seat.png')}}" alt="">
-                                        <h1 class="text-white font-bold font-mono text-4xl">{{$event->siege}}</h1>
-                                    </div>
-
-                                </div>
-
-                                <div class="flex justify-center mt-8 gap-5 bg-indigo-400 h-12 w-20 w-[150px] rounded-md">
-                                    <form action="{{route('organisateur.deleteEvent', ['event' => $event->id])}}" method="post">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="mt-2">
-                                            <svg class="w-8 h-8 hover:text-red-600 duration-300 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
-                                            </svg>
-                                        </button>
-                                    </form>
-                                    <form action="">
-                                        <button class="mt-2">
-                                            <svg class="w-9 h-9 hover:text-blue-600 duration-300 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.3 4.8 2.9 2.9M7 7H4a1 1 0 0 0-1 1v10c0 .6.4 1 1 1h11c.6 0 1-.4 1-1v-4.5m2.4-10a2 2 0 0 1 0 3l-6.8 6.8L8 14l.7-3.6 6.9-6.8a2 2 0 0 1 2.8 0Z"/>
-                                            </svg>
-                                        </button>
-                                    </form>
-                                </div>
-
-                                <div class="mt-4">
-                                    <h1 class="text-white font-medium text-lg">Open Doors</h1>
-                                    <h1 class="text-pink-700 font-bold text-lg">{{ $eventDate->format('H:i') }} Onwards</h1>
-                                </div>
-                            </div>
-                        </div>
                         @endforeach
 
 

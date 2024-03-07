@@ -36,28 +36,43 @@
     </div>
 </div>
 
-<div class="flex flex-wrap gap-5 py-20 px-5">
+<div class="flex flex-wrap gap-5 py-20 px-20">
                                                 <!--CARDS RESERVATION-->
-
-<div class="relative grid h-[547px] w-full max-w-[28rem] flex-col items-end justify-center overflow-hidden rounded-xl bg-white bg-clip-border text-center text-gray-700">
+    @foreach($reservations as $reservation)
+<div class="relative grid h-[547px] w-full max-w-[35rem] flex-col items-end justify-center overflow-hidden rounded-xl bg-white bg-clip-border text-center text-gray-700">
     <div class="absolute inset-0 m-0 h-full w-full overflow-hidden rounded-none bg-transparent bg-[url('img/login.jpg')] brightness-100 bg-cover bg-clip-border bg-center text-gray-700 shadow-none">
         <div class="absolute inset-0 w-full h-full to-bg-black-10 bg-gradient-to-t from-black/80 via-black/50"></div>
     </div>
-    <div>
-        <h1>walid</h1>
-    </div>
-    <div class="relative p-6 px-6 py-14 md:px-12">
-        <h2 class="mb-6 block font-sans text-4xl font-medium leading-[1.5] tracking-normal text-white antialiased">
-            How we design and code ?
+
+    <div class="z-10">
+        <h2 class="block font-mono  text-6xl font-bold leading-[1.5] tracking-normal text-white antialiased">
+            {{$reservation->event->title}}
         </h2>
-        <h5 class="block mb-4 font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-gray-400">
-            Tania Andrew
-        </h5>
-        <img alt="Tania Andrew"
-             src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1480&amp;q=80"
-             class="relative inline-block h-[74px] w-[74px] !rounded-full border-2 border-white object-cover object-center" />
+        <h2 class="block font-mono  text-4xl font-medium leading-[1.5] tracking-normal text-white antialiased">
+            {{$reservation->event->description}}
+        </h2>
+        <div class="flex justify-between gap-10 px-2 py-3">
+            <h1 class="text-white"><span class="font-bold text-lg text-pink-800">Organisateur :</span> {{$reservation->event->user->fname}} {{$reservation->event->user->lname}}</h1>
+            <div class="flex gap-3 mt-[2px]">
+
+                <svg class="w-6 h-6 z-10 text-gray-800  dark:text-pink-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.8 14h0a7 7 0 1 0-11.5 0h0l.1.3.3.3L12 21l5.1-6.2.6-.7.1-.2Z"/>
+                </svg>
+                @php
+                    $eventDate = \Carbon\Carbon::parse($reservation->event->date);
+                @endphp
+                <h1 class="text-white">{{$reservation->event->adress}}</h1>
+
+            </div>
+        </div>
+        <div class="py-2">
+            <h1 class="text-white"><span class="font-bold text-lg text-pink-800">La Date : </span>{{$eventDate->format('l, F j,  H:i') }}</h1>
+        </div>
     </div>
+
 </div>
+    @endforeach
 </div>
 
 

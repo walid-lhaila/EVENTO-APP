@@ -36,6 +36,7 @@ Route::post('organisateurStore', [AuthController::class, 'registerStore'])->name
 Route::middleware(['auth', 'role:client'])->group(function () {
     Route::get('event', [ClientController::class, 'event'])->name('client.event');
     Route::get('reservation', [ClientController::class, 'reservation']);
+    Route::post('reservation.store', [\App\Http\Controllers\ReservationController::class, 'create'])->name('reservation.store');
 });
 
 Route::middleware(['auth', 'role:organisateur'])->group(function () {

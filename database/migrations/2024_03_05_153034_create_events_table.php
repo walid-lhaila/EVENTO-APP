@@ -18,7 +18,7 @@ return new class extends Migration
             $table->dateTime('date');
             $table->decimal('price');
             $table->integer('siege');
-            $table->string('type-reserve');
+            $table->string('type_reserve');
             $table->string('image')->nullable();
             $table->string('validated_at')->nullable();
             $table->string('adress');

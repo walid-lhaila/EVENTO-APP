@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Event extends Model
 {
     protected $fillable = [
-        'title', 'description', 'date', 'price', 'siege', 'type-reserve', 'image', 'adress', 'user_id', 'category_id'
+        'title', 'description', 'date', 'price', 'siege', 'type_reserve', 'image', 'adress', 'user_id', 'category_id'
     ];
 
     // Define the relationship with the User model
@@ -20,5 +20,10 @@ class Event extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function reservation()
+    {
+        return $this->hasMany(Reservation::class);
     }
 }

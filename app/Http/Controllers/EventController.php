@@ -28,7 +28,7 @@ class EventController extends Controller
            'price' => 'required|numeric',
            'siege' => 'required|integer',
            'adress' => 'required|string',
-           'type-reserve' => 'required|string',
+           'type_reserve' => 'required|string',
            'category_id' => 'required',
            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
        ]);

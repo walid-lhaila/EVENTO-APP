@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Event;
 use App\Models\Reservation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ReservationController extends Controller
 {
@@ -18,9 +20,30 @@ class ReservationController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $eventId = $request->input('event_id');
+        $userId = Auth::id();
+        $person = $request->input('person');
+
+        $event = Event::find($eventId);
+
+        if($event && $event->type_reserve === 'automatic'){
+            $validated_at = now();
+        }else{
+            $validated_at = null;
+        }
+
+        $reservation = Reservation::create([
+            'event_id' => $eventId,
+            'user_id' => $userId,
+            'person' => $person,
+            'validated_at' => $validated_at,
+        ]);
+
+        return redirect()->back()->with('success');
+
+
     }
 
     /**
