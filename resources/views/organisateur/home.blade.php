@@ -30,10 +30,12 @@
 
             <div class="py-2 flex gap-4">
 
-                <div id="btn-notify">
-                    <svg class="w-8 h-8 dark:text-white hover:text-purple-600 cursor-pointerz" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <div id="btnNotify" class="relative">
+                    <h1 class="bg-red-500 flex justify-center ml-[-5px] mt-[-5px] absolute items-center rounded-full w-[20px] h-[20px] text-white">{{$notification}}</h1>
+                    <svg class="w-8 h-8 cursor-pointer dark:text-white hover:text-purple-600 cursor-pointerz" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5.4V3m0 2.4a5.3 5.3 0 0 1 5.1 5.3v1.8c0 2.4 1.9 3 1.9 4.2 0 .6 0 1.3-.5 1.3h-13c-.5 0-.5-.7-.5-1.3 0-1.2 1.9-1.8 1.9-4.2v-1.8A5.3 5.3 0 0 1 12 5.4ZM8.7 18c.1.9.3 1.5 1 2.1a3.5 3.5 0 0 0 4.6 0c.7-.6 1.3-1.2 1.4-2.1h-7Z"/>
                     </svg>
+
                 </div>
                 <a href="login">
                     <svg class="w-9 h-9 text-white hover:text-red-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -44,46 +46,49 @@
             </div>
         </div>
 
-    <div id="notify" class="absolute right-0 bg-black duration-300 h-48 px-5">
-        <div class="w-[310px] rounded border-4 border-double border-white shadow-md ">
+    <div id="notify" class="absolute right-0 scale-0 duration-300 h-48 px-5">
+        <div class="w-[503px] rounded border-4 border-double border-white shadow-md ">
             <h1 class="text-white font-bold text-xl underline py-1 flex justify-center items-center font-mono">Reservation</h1>
         </div>
-        <div class="flex justify-between px-3 py-5 border-4 border-double border-white shadow-md">
+        <div class="flex flex-col px-3 py-5 border-4 border-double border-white shadow-md">
+
             @foreach($reservations as $reservation)
-                @if($reservation->reservation && $reservation->reservation->validated_at === null)
-            <div class="flex gap-24 py-3 rounded bg-gradient-to-r from-white px-2">
+            <div class="flex gap-24 py-3 mb-2 rounded bg-gradient-to-r from-white px-2">
                 <div>
-                    <h1 class="font-bold text-md text-black">Mr {{$reservationItem->user->fname}} {{$reservationItem->user->lname}}</h1>
-                    <h1 class="font-bold text-md text-black">Reserved At : </h1>
+                    @php
+                        $createdDate = \Carbon\Carbon::parse($reservation->created_at);
+                    @endphp
+                    <h1 class="font-bold text-md text-black">Mr : {{$reservation->user->fname}} {{$reservation->user->lname}}</h1>
+                    <h1 class="font-bold text-md text-black">Reserved At : {{$createdDate->format('l, F j,  H:i') }}</h1>
                 </div>
                <div class="mt-1">
-                   <button>
-                       <svg class="w-8 h-8  dark:text-gray-100 hover:text-blue-600 duration-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                           <path fill-rule="evenodd" d="M2 12a10 10 0 1 1 20 0 10 10 0 0 1-20 0Zm13.7-1.3a1 1 0 0 0-1.4-1.4L11 12.6l-1.8-1.8a1 1 0 0 0-1.4 1.4l2.5 2.5c.4.4 1 .4 1.4 0l4-4Z" clip-rule="evenodd"/>
-                       </svg>
-                   </button>
-                   <button>
-                       <svg class="w-8 h-8 dark:text-gray-100 hover:text-red-600 duration-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                           <path fill-rule="evenodd" d="M2 12a10 10 0 1 1 20 0 10 10 0 0 1-20 0Zm7.7-3.7a1 1 0 0 0-1.4 1.4l2.3 2.3-2.3 2.3a1 1 0 1 0 1.4 1.4l2.3-2.3 2.3 2.3a1 1 0 0 0 1.4-1.4L13.4 12l2.3-2.3a1 1 0 0 0-1.4-1.4L12 10.6 9.7 8.3Z" clip-rule="evenodd"/>
-                       </svg>
-                   </button>
+                   <form action="{{route('organisateur.acceptReservation', ['reservationId' => $reservation->id])}}" method="post">
+                       @csrf
+                       <button>
+                           <svg class="w-8 h-8  dark:text-gray-100 hover:text-blue-600 duration-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                               <path fill-rule="evenodd" d="M2 12a10 10 0 1 1 20 0 10 10 0 0 1-20 0Zm13.7-1.3a1 1 0 0 0-1.4-1.4L11 12.6l-1.8-1.8a1 1 0 0 0-1.4 1.4l2.5 2.5c.4.4 1 .4 1.4 0l4-4Z" clip-rule="evenodd"/>
+                           </svg>
+                       </button>
+                   </form>
+                   <form action="{{route('organisateur.declineReservation', ['reservationId' => $reservation->id])}}" method="post">
+                       @csrf
+                       @method('DELETE')
+                       <button>
+                           <svg class="w-8 h-8 dark:text-gray-100 hover:text-red-600 duration-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                               <path fill-rule="evenodd" d="M2 12a10 10 0 1 1 20 0 10 10 0 0 1-20 0Zm7.7-3.7a1 1 0 0 0-1.4 1.4l2.3 2.3-2.3 2.3a1 1 0 1 0 1.4 1.4l2.3-2.3 2.3 2.3a1 1 0 0 0 1.4-1.4L13.4 12l2.3-2.3a1 1 0 0 0-1.4-1.4L12 10.6 9.7 8.3Z" clip-rule="evenodd"/>
+                           </svg>
+                       </button>
+                   </form>
                </div>
             </div>
-                @endif
             @endforeach
-            <div>
 
+            <div>
             </div>
         </div>
     </div>
 
         <div>
-            <!--
-  This example requires Tailwind CSS v2.0+
-
-  The alpine.js code is *NOT* production ready and is included to preview
-  possible interactivity
--->
 
                 <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
                     <div>
@@ -106,7 +111,7 @@
                                     Reservation
                                 </dt>
                                 <dd class="mt-1 text-3xl font-semibold text-white">
-                                    58.16%
+                                    {{$reservationCount}}
                                 </dd>
                             </div>
                         </dl>
@@ -219,13 +224,13 @@
                         All Events
                     </h3>
                 </div>
-                    <div class="flex justify-end px-10 mt-10">
+                    <div class="flex justify-end px-10 mt-5">
                         <button id="btn" class="bg-gradient-to-l from-indigo-600 duration-700 hover:bg-gradient-to-r from-indigo-600  text-white text-xl font-bold rounded-md shadow-lg border-4 border-double border-pink-600 px-4 py-2">
                             Add Event
                         </button>
                     </div>
 
-                    <div class="flex flex-wrap gap-5 p-5">
+                    <div class="flex flex-wrap mt-10 gap-10 justify-center">
                         @foreach($events as $event)
                             <div class="w-[800px] relative bg-cover border-4 border-double border-purple-400 rounded-lg  " style="background-image: url('{{asset('storage/' . $event->image)}}')">
                                 <div class="absolute inset-0 bg-black opacity-50 rounded-lg"></div>
@@ -255,13 +260,14 @@
                                             </svg>
                                             <h1 class="text-white font-medium text-xl mt-4">{{$event->adress}}</h1>
                                         </div>
-                                        <div class="flex gap-10">
+                                        <div class="flex gap-5">
                                             <div class="py-2 flex gap-3">
                                                 <img class="h-8 w-8 mt-1" src="{{url('img/seat.png')}}" alt="">
                                                 <h1 class="text-white font-bold font-mono text-4xl">{{$event->siege}}</h1>
                                             </div>
+                                            <div class="w-[4px] bg-white h-[30px] mt-4"></div>
                                             <div>
-                                                <h1 class="text-white font-bold font-mono mt-2 text-3xl">{{$event->price}}$</h1>
+                                                <h1 class="text-pink-300 font-bold font-mono mt-3 text-3xl">{{$event->price}}$</h1>
                                             </div>
                                         </div>
                                     </div>
@@ -313,6 +319,7 @@
 
 <script src="{{url('js/form.js')}}"></script>
 <script src="{{url('js/messages.js')}}"></script>
+<script src="{{url('js/notification.js')}}"></script>
 
 </body>
 

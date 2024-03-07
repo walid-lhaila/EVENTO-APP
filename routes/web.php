@@ -26,13 +26,6 @@ Route::post('clientStore', [AuthController::class, 'registerStore'])->name('clie
 Route::post('organisateurStore', [AuthController::class, 'registerStore'])->name('organisateurStore');
 
 
-
-
-
-
-
-
-
 Route::middleware(['auth', 'role:client'])->group(function () {
     Route::get('event', [ClientController::class, 'event'])->name('client.event');
     Route::get('reservation', [ClientController::class, 'reservation']);
@@ -43,6 +36,8 @@ Route::middleware(['auth', 'role:organisateur'])->group(function () {
     Route::get('home', [\App\Http\Controllers\OrganisateurController::class, 'index'])->name('organisateur.home');
     Route::post('/events-store', [\App\Http\Controllers\EventController::class, 'store'])->name('events-store');
     Route::delete('/organisateur/deleteEvent/{event}', [\App\Http\Controllers\EventController::class, 'deleteEvent'])->name('organisateur.deleteEvent');
+    Route::post('/organisateur/accept-reservation/{reservationId}', [\App\Http\Controllers\OrganisateurController::class, 'acceptReservation'])->name('organisateur.acceptReservation');
+    Route::delete('/organisateur/decline-reservation/{reservationId}', [\App\Http\Controllers\OrganisateurController::class, 'deleteReservation'])->name('organisateur.declineReservation');
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
