@@ -46,22 +46,23 @@
             </div>
         </div>
 
-    <div id="notify" class="absolute right-0 scale-0 duration-300 h-48 px-5">
+    <div id="notify" class="absolute right-0 scale-0 duration-300" >
         <div class="w-[503px] rounded border-4 border-double border-white shadow-md ">
             <h1 class="text-white font-bold text-xl underline py-1 flex justify-center items-center font-mono">Reservation</h1>
         </div>
-        <div class="flex flex-col px-3 py-5 border-4 border-double border-white shadow-md">
+        <div class="flex flex-col px-3 py-5 border-4 h-[300px]  px-5 border-double border-white shadow-md" style="overflow-y:scroll;">
 
             @foreach($reservations as $reservation)
             <div class="flex gap-24 py-3 mb-2 rounded bg-gradient-to-r from-white px-2">
                 <div>
                     @php
                         $createdDate = \Carbon\Carbon::parse($reservation->created_at);
+                        $timeAgo = $createdDate->diffForHumans();
                     @endphp
                     <h1 class="font-bold text-md text-black">Mr : {{$reservation->user->fname}} {{$reservation->user->lname}}</h1>
-                    <h1 class="font-bold text-md text-black">Reserved At : {{$createdDate->format('l, F j,  H:i') }}</h1>
+                    <h1 class="font-bold text-md text-black">Reserved At : {{ $timeAgo }}</h1>
                 </div>
-               <div class="mt-1">
+               <div class="mt-1 flex gap-3">
                    <form action="{{route('organisateur.acceptReservation', ['reservationId' => $reservation->id])}}" method="post">
                        @csrf
                        <button>
@@ -156,7 +157,7 @@
                             <div class="flex gap-10">
 
                                 <div class="relative z-0 w-full mt-5 mb-5 group">
-                                    <input type="tel" name="price" id="price" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-white dark:focus:border-orange-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                                    <input type="number" name="price" id="price" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-white dark:focus:border-orange-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required min="1" value="1" />
                                     <label for="price" class="peer-focus:font-medium absolute text-sm text-white duration-300 transform -translate-y-2 scale-75 top-2 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-white font-bold peer-focus:dark:text-white peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Price</label>
                                 </div>
 
@@ -170,7 +171,7 @@
                             <div class="flex gap-10">
 
                                 <div class="relative z-0 w-full mt-5 mb-5 group">
-                                    <input type="tel" name="siege" id="siege" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-white dark:focus:border-orange-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                                    <input type="number" name="siege" id="siege" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-white dark:focus:border-orange-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required min="10" value="10" />
                                     <label for="siege" class="peer-focus:font-medium absolute text-sm text-white duration-300 transform -translate-y-2 scale-75 top-2 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-white font-bold peer-focus:dark:text-white peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Siège</label>
                                 </div>
 
@@ -281,23 +282,19 @@
                                 </div>
                                 <div class="flex justify-center py-2 relative z-10">
 
-                                    <div class="flex justify-center gap-5 bg-indigo-600 h-12 w-20 w-[150px] rounded-md">
-                                        <form action="{{route('organisateur.deleteEvent', ['event' => $event->id])}}" method="post">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="mt-2">
-                                                <svg class="w-8 h-8 hover:text-red-600 duration-300 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
-                                                </svg>
-                                            </button>
-                                        </form>
-                                        <form action="">
-                                            <button class="mt-2">
-                                                <svg class="w-9 h-9 hover:text-blue-400 duration-300 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.3 4.8 2.9 2.9M7 7H4a1 1 0 0 0-1 1v10c0 .6.4 1 1 1h11c.6 0 1-.4 1-1v-4.5m2.4-10a2 2 0 0 1 0 3l-6.8 6.8L8 14l.7-3.6 6.9-6.8a2 2 0 0 1 2.8 0Z"/>
-                                                </svg>
-                                            </button>
-                                        </form>
+                                    <div class="flex justify-center gap-5 bg-indigo-600 h-12 w-20 w-[50px] rounded-md">
+
+                                            <!-- Show the delete button if no reservations exist -->
+                                            <form action="{{route('organisateur.deleteEvent', ['event' => $event->id])}}" method="post">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class="mt-2">
+                                                    <svg class="w-8 h-8 hover:text-red-600 duration-300 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
+                                                    </svg>
+                                                </button>
+                                            </form>
+
                                     </div>
                                 </div>
                             </div>

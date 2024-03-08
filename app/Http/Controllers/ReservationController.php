@@ -34,14 +34,19 @@ class ReservationController extends Controller
             $validated_at = null;
         }
 
+
+
         $reservation = Reservation::create([
             'event_id' => $eventId,
             'user_id' => $userId,
             'person' => $person,
             'validated_at' => $validated_at,
         ]);
+        $event = Event::find($eventId);
 
-        return redirect()->back()->with('success');
+        // Calculate remaining seats after reservation
+        $remainingSeats = $event->remainingSeats();
+        return redirect()->back()->with('success'. $remainingSeats);
 
 
     }

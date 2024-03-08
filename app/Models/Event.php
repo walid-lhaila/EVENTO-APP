@@ -17,12 +17,20 @@ class Event extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function remainingSeats()
+    {
+        $totalSeats = $this->siege;
+        $reservedSeats = $this->reservations()->sum('person');
+
+        return max(0, $totalSeats - $reservedSeats);
+    }
+
     public function category()
     {
         return $this->belongsTo(Category::class);
     }
 
-    public function reservation()
+    public function reservations()
     {
         return $this->hasMany(Reservation::class);
     }

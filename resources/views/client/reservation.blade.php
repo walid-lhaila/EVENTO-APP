@@ -40,7 +40,7 @@
                                                 <!--CARDS RESERVATION-->
     @foreach($reservations as $reservation)
 <div class="relative grid h-[547px] w-full max-w-[35rem] flex-col items-end justify-center overflow-hidden rounded-xl bg-white bg-clip-border text-center text-gray-700">
-    <div class="absolute inset-0 m-0 h-full w-full overflow-hidden rounded-none bg-transparent bg-[url('img/login.jpg')] brightness-100 bg-cover bg-clip-border bg-center text-gray-700 shadow-none">
+    <div class="absolute inset-0 m-0 h-full w-full overflow-hidden rounded-none bg-transparent bg-[url('{{asset('storage/' . $reservation->event->image)}}')] brightness-100 bg-cover bg-clip-border bg-center text-gray-700 shadow-none">
         <div class="absolute inset-0 w-full h-full to-bg-black-10 bg-gradient-to-t from-black/80 via-black/50"></div>
     </div>
 
@@ -69,10 +69,21 @@
         <div class="py-2">
             <h1 class="text-white"><span class="font-bold text-lg text-pink-800">La Date : </span>{{$eventDate->format('l, F j,  H:i') }}</h1>
         </div>
+        <form action="{{ route('download-ticket', ['reservationId' => $reservation->id]) }}" method="post">
+            @csrf
+            <div class="p-4 flex justify-end">
+                <button type="submit" class="bg-indigo-600 text-white px-3 py-1 rounded-md font-medium text-md font-mono">Download</button>
+            </div>
+        </form>
     </div>
 
 </div>
     @endforeach
+
+</div>
+
+<div class="mt-4 flex  justify-center py-5 ml-[-150px]">
+    {{ $reservations->links() }}
 </div>
 
 

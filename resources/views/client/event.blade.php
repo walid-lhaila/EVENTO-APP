@@ -31,40 +31,39 @@
 
 
                                                         <!--SEARCH-->
-    <div class="flex justify-center mt-16 z-50">
-        <form class="max-w-lg mx-auto">
-            <div class="flex w-[550px]">
-                <div>
-                    <label for="search-dropdown" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Your Email</label>
-                    <button id="dropdown-button" data-dropdown-toggle="dropdown" class="flex-shrink-0 z-10 inline-flex w-[140px] items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-gray-300  hover:bg-gray-200  focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600" type="button">All categories
-                        <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
-                        </svg>
-                    </button>
+        <div class="flex justify-center mt-16 z-50">
+            <form action="{{route('client.search')}}" method="get" class="max-w-lg mx-auto" id="searchForm">
+                <div class="flex w-[550px]">
+                    <div>
+                        <label for="search-dropdown" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Your Email</label>
+{{--                        <button id="dropdown-button" data-dropdown-toggle="dropdown" class="flex-shrink-0 z-10 inline-flex w-[140px] items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-gray-300  hover:bg-gray-200  focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600" type="button">--}}
+{{--                            <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">--}}
+{{--                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>--}}
+{{--                            </svg>--}}
+{{--                        </button>--}}
 
-                    <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-b-md shadow w-[140px] dark:bg-gray-700">
-                        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdown-button">
-                            @foreach($categories as $category)
-                                <li>
-                                    <button type="button" class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">{{$category->name}}</button>
-                                </li>
-                            @endforeach
-                        </ul>
+                        <div id="dropdown" class="z-10  divide-y divide-gray-100 rounded-b-md shadow  ">
+                            <select class="bg-gray-600 p-2.5 text-white" name="category" id="categoryDropdown" onchange="submitForm()">
+                                <option value="" selected>All categories</option>
+                                @foreach($categories as $category)
+                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
                     </div>
-
+                    <div class="relative w-full">
+                        <input type="search" name="search" class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg border-s-gray-50 border-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-s-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" placeholder="Search Title.. Description ..." required />
+                        <button type="submit" class="absolute top-0 end-0 p-2.5 text-sm font-medium h-[42px] text-white bg-indigo-400 rounded-e-lg border border-blue-700 hover:bg-indigo-500 focus:ring-4 focus:outline-none focus:ring-blue-300  duration-500 dark:focus:ring-blue-800">
+                            <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                            </svg>
+                            <span class="sr-only">Search</span>
+                        </button>
+                    </div>
                 </div>
-                <div class="relative w-full">
-                    <input type="search" id="" class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg border-s-gray-50 border-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-s-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" placeholder="Search Mockups, Logos, Design Templates..." required />
-                    <button type="submit" class="absolute top-0 end-0 p-2.5 text-sm font-medium h-[42px] text-white bg-indigo-400 rounded-e-lg border border-blue-700 hover:bg-indigo-500 focus:ring-4 focus:outline-none focus:ring-blue-300  duration-500 dark:focus:ring-blue-800">
-                        <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                        </svg>
-                        <span class="sr-only">Search</span>
-                    </button>
-                </div>
-            </div>
-        </form>
-    </div>
+            </form>
+        </div>
 
                                                 <!--CARDS-->
     <div class=" flex flex-wrap ml-16 mt-10">
@@ -102,7 +101,7 @@
                         <div class="flex gap-10">
                             <div class="py-2 flex gap-3 z-10">
                                 <img class="h-8 w-8 mt-1" src="{{url('img/seat.png')}}" alt="">
-                                <h1 class="text-white font-bold font-mono text-4xl">{{$event->siege}}</h1>
+                                <h1 class="text-white font-bold font-mono text-4xl">{{$event->remainingSeats()}}</h1>
                             </div>
                             <div class="z-10">
                                 <h1 class="text-pink-800 font-bold font-mono mt-2 text-3xl">{{$event->price}}$</h1>
@@ -118,6 +117,7 @@
                 </div>
 
                 <div class="flex justify-center py-2">
+                    @if($event->remainingSeats() > 0)
                     <form action="{{route('reservation.store')}}" method="post" enctype="multipart/form-data" class="z-10" >
                         @csrf
                         <input type="hidden" name="event_id" value="{{$event->id}}">
@@ -127,6 +127,10 @@
                             Reserve
                         </button>
                     </form>
+                    @else
+                    <p class="text-white z-10 bg-red-500 px-2 rounded font-medium mt-4">Oops! All seats for this event have been taken.</p>
+                    @endif
+
                 </div>
 
             </div>
@@ -134,13 +138,19 @@
         @endforeach
 
 
-
-
-
+    </div>
+    <div class="mt-4 flex  justify-center">
+        {{ $events->links() }}
     </div>
 
                                                         <!--END CARDS-->
 </div>
+
+<script>
+    function submitForm() {
+        document.getElementById('searchForm').submit();
+    }
+</script>
 
 <script src="{{url('js/filter.js')}}"></script>
 <script src="{{url('js/reserve.js')}}"></script>

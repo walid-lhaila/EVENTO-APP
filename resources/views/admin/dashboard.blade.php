@@ -16,7 +16,7 @@
                 </svg>
             </a>
 
-            <a href="#" class="p-1.5 text-gray-500 focus:outline-nones transition-colors duration-200 rounded-lg dark:text-white hover:bg-purple-100">
+            <a href="{{route('admin.users')}}" class="p-1.5 text-gray-500 focus:outline-nones transition-colors duration-200 rounded-lg dark:text-white hover:bg-purple-100">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 hover:text-purple-500">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
                 </svg>
@@ -28,9 +28,9 @@
                 </svg>
             </a>
 
-            <a href="/" class="p-1.5 text-gray-500 focus:outline-nones transition-colors duration-200 rounded-lg dark:text-white hover:bg-purple-100">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 hover:text-purple-500">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+            <a href="login" class="p-1.5 text-gray-500 focus:outline-nones transition-colors duration-200 rounded-lg dark:text-white hover:bg-purple-100">
+                <svg class="w-6 h-6 text-white hover:text-red-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12H4m12 0-4 4m4-4-4-4m3-4h2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-2"/>
                 </svg>
             </a>
 
@@ -54,8 +54,8 @@
         </div>
     </aside>
 
-    <section>
-        <div class="">
+    <section class="w-full">
+        <div class="w-full">
             <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
                         <div class="flex justify-center">
                             @if(session('success'))
@@ -74,8 +74,8 @@
                             @endif
                         </div>
                 <div>
-                    <h3 class="text-lg leading-6 font-medium text-gray-900">
-                        Last 30 days
+                    <h3 class="text-2xl leading-6 font-bold  py-3 text-gray-900">
+                       Stats
                     </h3>
 
                     <div class="flex gap-5">
@@ -139,7 +139,7 @@
                             </dt>
                             <dd class="ml-16 pb-6 flex items-baseline sm:pb-7">
                                 <p class="text-2xl font-semibold text-gray-900">
-                                    71,897
+                                    {{$reservationCount}}
                                 </p>
                             </dd>
                         </div>
@@ -153,19 +153,21 @@
 
         <div class="p-5">
             <table id="table">
-                <thead class="bg-gradient-to-t from-purple-600">
+                <thead class="bg-gradient-to-t from-indigo-600">
                     <th class="text-lg">Organisateur</th>
                     <th class="text-lg">Event</th>
                     <th class="text-lg">Date</th>
                     <th class="text-lg">Siege</th>
+                    <th class="text-lg">Price</th>
                     <th class="text-lg">Action</th>
                 </thead>
                 @foreach($events as $event)
-                <tbody class="bg-purple-200 text-lg font-medium">
+                <tbody class="bg-indigo-200 text-lg font-medium">
                     <td>{{$event->user->fname}}     {{$event->user->lname}}</td>
                     <td>{{$event->title}}</td>
                     <td>{{$event->date}}</td>
                     <td>{{$event->siege}}</td>
+                    <td>{{$event->price}}$</td>
                     <td class="flex gap-3 justify-center">
                         <form action="{{route('admin.acceptEvent', ['eventId' => $event->id])}}" method="post">
                             @csrf
