@@ -69,7 +69,7 @@
         <div class="py-2">
             <h1 class="text-white"><span class="font-bold text-lg text-pink-800">La Date : </span>{{$eventDate->format('l, F j,  H:i') }}</h1>
         </div>
-        <form action="{{ route('download-ticket', ['reservationId' => $reservation->id]) }}" method="post">
+        <form action="{{ route('generate-ticket', ['reservationId' => $reservation->id]) }}" method="post">
             @csrf
             <div class="p-4 flex justify-end">
                 <button type="submit" class="bg-indigo-600 text-white px-3 py-1 rounded-md font-medium text-md font-mono">Download</button>

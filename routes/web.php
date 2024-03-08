@@ -31,7 +31,8 @@ Route::middleware(['auth', 'role:client'])->group(function () {
     Route::get('reservation', [ClientController::class, 'reservation']);
     Route::post('reservation.store', [\App\Http\Controllers\ReservationController::class, 'create'])->name('reservation.store');
     Route::get('client.search', [\App\Http\Controllers\SearchController::class, 'search'])->name('client.search');
-    Route::post('/download-ticket/{reservationId}', [ClientController::class, 'downloadTicket'])->name('download-ticket');
+    Route::get('/ticket', [\App\Http\Controllers\TicketController::class, 'ticket']);
+    Route::post('/generate-ticket/{reservationId}', [\App\Http\Controllers\TicketController::class, 'generate'])->name('generate-ticket');
 
 });
 

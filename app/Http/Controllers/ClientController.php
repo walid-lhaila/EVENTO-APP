@@ -25,18 +25,4 @@ class ClientController extends Controller
             return view('client.reservation', compact('reservations'));
         }
 
-    public function downloadTicket($reservationId)
-    {
-        $reservation = Reservation::with('event')->find($reservationId);
-
-        if (!$reservation) {
-            abort(404);
-        }
-
-        $pdf = PDF\Pdf::loadView('pdf.ticket', ['reservation' => $reservation]);
-
-        return $pdf->download('ticket.pdf');
-    }
-
-
 }
