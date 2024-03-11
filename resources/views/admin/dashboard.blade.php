@@ -41,7 +41,7 @@
             @foreach($users as $user)
             <div class="space-y-4">
                 <div class="flex items-center w-full px-5 py-2 transition-colors duration-200 gap-x-2 bg-gradient-to-r from-indigo-600   focus:outline-none">
-                    <img class="object-cover w-8 h-8 rounded-full" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=faceare&facepad=3&w=688&h=688&q=100" alt="">
+                    <img class="object-cover w-8 h-8 rounded-full" src="{{url('img/avatar.png')}}" alt="">
 
                     <div class="text-left rtl:text-right hover:text-white">
                         <h1 class="text-sm font-medium text-gray-800 capitalize ">{{$user->fname}} {{$user->lname}}</h1>

@@ -10,4 +10,4 @@ setTimeout(function (){
     if(deleteMessage){
         deleteMessage.remove();
     }
-}, 2000);
+}, 3000);

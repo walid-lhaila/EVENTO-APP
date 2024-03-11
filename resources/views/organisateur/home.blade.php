@@ -26,6 +26,9 @@
                 </div>
             </div>
             @endif
+            <div class="flex gap-10 py-1 ml-[-150px]">
+                <a href="home"><button class="font-medium text-2xl px-3 py-1 text-white  duration-300 hover:text-red-400">Home</button></a>
+            </div>
 
 
             <div class="py-2 flex gap-4">
@@ -313,6 +316,13 @@
         </div>
 
 </div>
+<script>
+    // Get the current local time in the format required by datetime-local input
+    var currentDate = new Date().toISOString().slice(0, 16);
+
+    // Set the min attribute of the date input
+    document.getElementById('date').min = currentDate;
+</script>
 
 <script src="{{url('js/form.js')}}"></script>
 <script src="{{url('js/messages.js')}}"></script>

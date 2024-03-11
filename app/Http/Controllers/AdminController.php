@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Event;
 use App\Models\Reservation;
 use App\Models\User;
@@ -22,7 +23,8 @@ class AdminController extends Controller
     }
     public function category()
     {
-        return view('admin.category');
+            $categories = Category::all();
+        return view('admin.category', compact('categories'));
     }
 
     public function users()
@@ -30,11 +32,18 @@ class AdminController extends Controller
         $users = User::all();
         return view('admin.users', compact('users'));
     }
+    public function destroyUser($userId)
+    {
+        $user = User::findOrFail($userId);
+        $user->delete();
+
+        return redirect()->back()->with('delete', 'User Baned Successfully');
+    }
 
     public function acceptEvent($eventId)
     {
         $event = Event::findOrFail($eventId);
-        $event->validated_at = now(); // Set the validated_at attribute directly
+        $event->validated_at = now();
         $event->save();
 
         return redirect()->back()->with('success', 'Event Accepted successfully');
@@ -49,4 +58,32 @@ class AdminController extends Controller
 
     }
 
+    public function destroy($categoryId)
+    {
+        $category = Category::findOrFail($categoryId);
+        $category->delete();
+
+        return redirect()->back()->with('success', 'Category Deleted Successfully');
+    }
+
+    public function update(Request $request,$categoryId)
+    {
+        $request->validate([
+            'newNameCategory' => 'required|min:4',
+        ]);
+
+        $category = Category::findOrFail($categoryId);
+        $category->name = $request->newNameCategory;
+        $category->save();
+
+        // Redirect back to the categories list page
+        return redirect()->route('admin.category');
+    }
+
+    public function updateForm($categoryId)
+    {
+        $category = Category::findOrFail($categoryId);
+
+        return view('admin.updateForm', compact('category'));
+    }
 }

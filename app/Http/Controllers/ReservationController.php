@@ -34,8 +34,6 @@ class ReservationController extends Controller
             $validated_at = null;
         }
 
-
-
         $reservation = Reservation::create([
             'event_id' => $eventId,
             'user_id' => $userId,

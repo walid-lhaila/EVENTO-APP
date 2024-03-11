@@ -16,10 +16,11 @@ return new class extends Migration
             $table->string('fname');
             $table->string('lname');
             $table->string('role');
-            $table->string('phone');
+            $table->string('phone')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();
         });

@@ -25,6 +25,9 @@ Route::post('loginStore', [AuthController::class, 'store'])->name('loginStore');
 Route::post('clientStore', [AuthController::class, 'registerStore'])->name('clientStore');
 Route::post('organisateurStore', [AuthController::class, 'registerStore'])->name('organisateurStore');
 
+Route::get('/auth/google/redirect', [\App\Http\Controllers\SociliteController::class, 'redirectToGoogleProvider']);
+Route::get('/auth/google/callback', [\App\Http\Controllers\SociliteController::class, 'callback']);
+
 
 Route::middleware(['auth', 'role:client'])->group(function () {
     Route::get('event', [ClientController::class, 'event'])->name('client.event');
@@ -33,6 +36,7 @@ Route::middleware(['auth', 'role:client'])->group(function () {
     Route::get('client.search', [\App\Http\Controllers\SearchController::class, 'search'])->name('client.search');
     Route::get('/ticket', [\App\Http\Controllers\TicketController::class, 'ticket']);
     Route::post('/generate-ticket/{reservationId}', [\App\Http\Controllers\TicketController::class, 'generate'])->name('generate-ticket');
+    Route::get('eventDetails/{eventId}', [\App\Http\Controllers\ClientController::class, 'eventDetails'])->name('eventDetails');
 
 });
 
@@ -42,7 +46,6 @@ Route::middleware(['auth', 'role:organisateur'])->group(function () {
     Route::delete('/organisateur/deleteEvent/{event}', [\App\Http\Controllers\EventController::class, 'deleteEvent'])->name('organisateur.deleteEvent');
     Route::post('/organisateur/accept-reservation/{reservationId}', [\App\Http\Controllers\OrganisateurController::class, 'acceptReservation'])->name('organisateur.acceptReservation');
     Route::delete('/organisateur/decline-reservation/{reservationId}', [\App\Http\Controllers\OrganisateurController::class, 'deleteReservation'])->name('organisateur.declineReservation');
-
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
@@ -52,4 +55,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::post('/admin/accept-event/{eventId}', [\App\Http\Controllers\AdminController::class, 'acceptEvent'])->name('admin.acceptEvent');
     Route::delete('/admin/decline-event/{eventId}', [\App\Http\Controllers\AdminController::class, 'declineEvent'])->name('admin.declineEvent');
     Route::get('users', [\App\Http\Controllers\AdminController::class, 'users'])->name('admin.users');
+    Route::delete('/deleteCategory/{categoryId}', [\App\Http\Controllers\AdminController::class, 'destroy'])->name('deleteCategory');
+    Route::post('/updateCategory/{categoryId}', [\App\Http\Controllers\AdminController::class, 'update'])->name('updateCategory');
+    Route::delete('/deleteUser/{userId}', [\App\Http\Controllers\AdminController::class, 'destroyUser'])->name('deleteUser');
+    Route::get('/updateForm/{categoryId}', [\App\Http\Controllers\AdminController::class, 'updateForm'])->name('updateForm');
 });

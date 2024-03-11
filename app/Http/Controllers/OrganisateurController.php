@@ -29,8 +29,7 @@ class OrganisateurController extends Controller
                 ->with(['event', 'user'])
                 ->get();
         } else {
-            // User is not authenticated, handle accordingly
-            // For example, you might redirect to the login page or show a message.
+
             return redirect()->route('login')->with('error', 'Please log in to view reservations.');
         }
 
@@ -56,4 +55,6 @@ class OrganisateurController extends Controller
 
         return redirect()->back()->with('Reservation Deleted Successfully');
     }
+
+
 }

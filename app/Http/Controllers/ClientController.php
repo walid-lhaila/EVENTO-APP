@@ -25,4 +25,11 @@ class ClientController extends Controller
             return view('client.reservation', compact('reservations'));
         }
 
+    public function eventDetails($eventId)
+    {
+        $event = Event::find($eventId);
+
+        return view('client.eventDetails', ['event' => $event]);
+    }
+
 }

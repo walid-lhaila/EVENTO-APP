@@ -1,14 +1,246 @@
-@extends('header')
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: url("https://media.resources.festicket.com/www/magazine/Beach.jpg");
+            background-size: cover;
+            background-position: center center;
+            height: 100vh;
+            display: grid;
+            place-items: center;
+            font-size: min(1.5rem, 2vw);
+        }
+        /* default logosvg color*/
+        .logosvg {
+            fill: black;
+            stroke: black;
+        }
+
+        #ticket {
+            color: white;
+            display: flex;
+            text-transform: uppercase;
+            font-family: sans-serif;
+            font-family: "Acme", sans-serif;
+            background-color: rgb(200, 50, 5);
+            background-image: linear-gradient(
+                to bottom right,
+                rgba(255, 150, 0, 0.5),
+                rgba(10, 10, 150, 0.5)
+            ),
+            url("https://www.transparenttextures.com/patterns/cream-paper.png");
+            position: relative;
+            box-shadow: 0 0 5em black, 0 0 5em black;
+        }
+
+        #ticket > *:not(.background) {
+            filter: drop-shadow(0.05em 0.05em black);
+        }
+        #ticket .background {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            opacity: 0.15;
+            filter: drop-shadow(0.25em 0.25em black);
+        }
+        #ticket .background .logosvg {
+            fill: var(--color);
+            stroke: var(--color);
+            position: absolute;
+            height: 100%;
+            width: 100%;
+        }
+        #ticket .background .logosvg.left {
+            --color: rgb(194, 171, 95);
+            top: 0;
+            left: 0;
+            transform: translate(-50%, -50%) scale(3);
+        }
+        #ticket .background .logosvg.right {
+            --color: rgb(100, 13, 24);
+            bottom: 0;
+            right: 0;
+            transform: translate(50%, 50%) scale(3);
+        }
+
+        #ticket .left {
+            padding: 1.5em 3em;
+            display: flex;
+            flex-direction: column;
+            gap: 1em;
+        }
+        #ticket .left .header {
+            display: flex;
+            align-items: center;
+            gap: 1em;
+        }
+        #ticket .left .header .logosvg {
+            height: 4em;
+            width: 4em;
+            fill: white;
+            stroke: white;
+        }
+        #ticket .left .header h1 {
+            font-size: 4em;
+            line-height: 1em;
+        }
+        #ticket .left h2 {
+            font-size: 1.5em;
+        }
+        #ticket .left .details {
+            font-size: 1em;
+            display: grid;
+            grid-template-columns: max-content auto max-content;
+            border: 0.05em solid white;
+        }
+        #ticket .left .details > div {
+            border: 0.05em solid white;
+            padding: 0.2em 0.5em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #ticket .left .details .code {
+            grid-row: 1/3;
+            grid-column: 3/4;
+            font-size: 2.5em;
+            border: 0.025em solid white;
+        }
+        #ticket .left .details .access {
+            grid-column: 1/3;
+            font-size: 1.5em;
+        }
+
+        #ticket .barcode {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 4em;
+            border-right: 0.05em dashed rgb(223, 223, 223);
+        }
+
+        #ticket .barcode-container {
+            transform: rotate(-90deg);
+            position: relative;
+            line-height: 1em;
+        }
+        #ticket .barcode-container::after {
+            content: attr(title);
+            font-family: "Libre Barcode 128", cursive;
+            font-size: 3em;
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        #ticket .barcode-container::before {
+            content: attr(title);
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        #ticket .right {
+            padding: 1.5em;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            gap: 0.5em;
+        }
+        #ticket .right .logosvg {
+            fill: white;
+            stroke: white;
+            height: 3em;
+            width: 3em;
+        }
+        #ticket .right h1 {
+            font-size: 1.5em;
+        }
+        #ticket .right h2 {
+            font-size: 1em;
+            word-wrap: all;
+            max-width: 8em;
+        }
+        #ticket .right .details {
+            font-size: 0.8em;
+            display: grid;
+            grid-template-columns: max-content max-content;
+            border: 0.05em solid white;
+        }
+        #ticket .right .details > div {
+            padding: 0.05em 0.5em;
+            font-size: 1.2em;
+        }
+        #ticket .right .details > div:nth-child(odd) {
+            border-right: 0.05em solid white;
+        }
+
+        #ticket .right .details > div:nth-child(-n + 2) {
+            border-bottom: 0.05em solid white;
+            font-size: 0.8em;
+        }
+
+    </style>
+    <title>Document</title>
+</head>
 <body>
+<body>
+<div id="ticket">
+    <div class="background">
+        <svg class="logosvg left">
+            <use href="#logosvg">
+        </svg>
+        <svg class="logosvg right">
+            <use href="#logosvg">
+        </svg>
+    </div>
+    <div class="left">
+        <div class="header">
+            <svg class="logosvg">
+                <use href="#logosvg">
+            </svg>
+            <h1>{{$reservation->event->title}}</h1>
+        </div>
+        <h2>{{$reservation->event->description}}</h1>
+            <div class="details">
+                @php
+                    $eventDate = \Carbon\Carbon::parse($reservation->event->date);
+                @endphp
+                <div class="day"><span class="day-span">{{ $eventDate->format('l') }}</span></div>
+                <div class="date"><span class="fulldate-span">{{$eventDate->format(' F j,  H:i') }}</span></div>
+                <div class="code"><span class="code-span">{{$reservation->event->price}}$</span></div>
+                <div class="access">{{$reservation->event->adress}}</div>
+            </div>
+    </div>
+    <div class="barcode">
+    </div>
+    <div class="right">
+        <svg class="logosvg">
+            <use href="#logosvg">
+        </svg>
+        <h1>Ticket</h1>
+        <h2>{{$reservation->user->fname}} {{$reservation->user->lname}} <span class="year-span"></span></h1>
 
-<h1>Invoice</h1>
-<img src='' class='invoice-icon' alt='Invoice icon'>
-<p><span class='label'>Billed to:</span> ${{ $name }}</p>
-<p><span class='label'>Subtotal:</span> ${{ $price }}</p>
-<p><span class='label'>Tax:</span> ${{ $position }}</p>
-<p><span class='label'>Total:</span> ${{ $eventName }}</p>
-<p><span class='label'>Total:</span> ${{ $eventDescription }}</p>
-<p><span class='label'>Total:</span> ${{ $eventData }}</p>
-
+    </div>
+</div>
 
 </body>
+</body>
+</html>

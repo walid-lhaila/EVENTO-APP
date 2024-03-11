@@ -116,21 +116,29 @@
 
                 </div>
 
-                <div class="flex justify-center py-2">
+                <div class="flex justify-center gap-3 py-2">
                     @if($event->remainingSeats() > 0)
+                        @if(\carbon\carbon::now()-> lt($eventDate))
                     <form action="{{route('reservation.store')}}" method="post" enctype="multipart/form-data" class="z-10" >
                         @csrf
                         <input type="hidden" name="event_id" value="{{$event->id}}">
                         <input type="hidden" name="person" value="1">
 
-                        <button type="submit"  class="text-white z-10 bg-purple-600 hover:bg-purple-800 duration-300 px-3 py-1 text-xl rounded-md font-medium items-center">
+                        <button type="submit"  class="text-white z-10 bg-purple-600 hover:bg-purple-800 duration-300 px-3 py-2 text-xl rounded-md font-medium items-center">
                             Reserve
                         </button>
                     </form>
                     @else
-                    <p class="text-white z-10 bg-red-500 px-2 rounded font-medium mt-4">Oops! All seats for this event have been taken.</p>
+                            <p class="text-white z-10 bg-red-500 px-2 py-2 rounded font-medium ">Oops! This event has already passed.</p>
                     @endif
-
+                    @else
+                            <p class="text-white z-10 bg-red-500 px-2 rounded font-medium mt-4">Oops! All seats for this event have been taken.</p>
+                    @endif
+                    <a class="z-10" href="{{route('eventDetails', ['eventId' => $event->id])}}">
+                        <button type="submit"  class="text-white py-2 z-10 bg-violet-600 hover:bg-violet-800 duration-300 px-3  text-xl rounded-md font-medium items-center">
+                            See More
+                        </button>
+                    </a>
                 </div>
 
             </div>

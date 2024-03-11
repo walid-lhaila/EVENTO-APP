@@ -17,7 +17,7 @@ class Kernel extends HttpKernel
         // ... (existing middleware)
         'role' => \App\Http\Middleware\RoleMiddleware::class,
     ];
-    
+
     protected $middleware = [
         // \App\Http\Middleware\TrustHosts::class,
         \App\Http\Middleware\TrustProxies::class,
